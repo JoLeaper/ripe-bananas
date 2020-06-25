@@ -3,7 +3,7 @@ const { prepare, agent } = require('../db/data-helpers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
-  it.only('GETs all the actors', async() => {
+  it('GETs all the studios', async() => {
     const studios = prepare(await Studio.find());
 
     return agent
@@ -13,7 +13,7 @@ describe('ripe-bananas routes', () => {
       });
   });
 
-  it('GETs a single actor by id', async() => {
+  it('GETs a single studios by id', async() => {
     const studio = prepare(await Studio.findOne());
 
     return agent
@@ -24,23 +24,28 @@ describe('ripe-bananas routes', () => {
 
   });
 
-  it('POSTs a new actor and information', async() => {
+  it.only('POSTs a new studio and information', async() => {
 
     return agent
-      .post('/api/v1/actors/')
+      .post('/api/v1/studios/')
       .send({
-        name: 'john Jones',
-        dob: Date.now(),
-        pob: 'seattle WA'
+        name: 'Universal Studios',  
+        address: {
+          city: 'Orlando',
+          state: 'FL',
+          country: 'US'
+        }
       })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.anything(),
-          name: 'john Jones',
-          dob: expect.any(String),
-          pob: 'seattle WA',
-          __v:0
-
+          name: 'Universal Studios',  
+          address: {
+            city: 'Orlando',
+            state: 'FL',
+            country: 'US'
+          },
+          __v: 0
         });
       });
   });
