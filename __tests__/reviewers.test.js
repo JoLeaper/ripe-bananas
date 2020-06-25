@@ -44,7 +44,7 @@ describe('ripe-bananas routes', () => {
   });
 
   
-  it('PATCHes a single reviewer by id', async() => {
+  it('PATCHes a single reviewer\'s name by id', async() => {
     const reviewer = prepare(await Reviewer.findOne());
 
     return agent
