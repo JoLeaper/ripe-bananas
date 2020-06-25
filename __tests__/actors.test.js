@@ -24,7 +24,7 @@ describe('ripe-bananas routes', () => {
 
   });
 
-  it.only('POSTs a new actor and information', async() => {
+  it('POSTs a new actor and information', async() => {
 
     return agent
       .post('/api/v1/actors/')
