@@ -42,4 +42,20 @@ describe('ripe-bananas routes', () => {
         });
       });
   });
+
+  
+  it('PATCHes a single reviewer by id', async() => {
+    const reviewer = prepare(await Reviewer.findOne());
+
+    return agent
+      .patch(`/api/v1/reviewers/${reviewer._id}`)
+      .send({ name: 'Frank Murphy' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...reviewer,
+          name: 'Frank Murphy'
+        });
+      });
+
+  });
 });
