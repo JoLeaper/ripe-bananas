@@ -3,7 +3,7 @@ const { prepare, agent } = require('../db/data-helpers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
-  it.only('GETs all the actors', async() => {
+  it('GETs all the actors', async() => {
     const actors = prepare(await Actor.find());
 
     return agent
@@ -13,7 +13,15 @@ describe('ripe-bananas routes', () => {
       });
   });
 
-  it('GETs a single actor by id', () => {
+  it.only('GETs a single actor by id', async() => {
+    const actor = prepare(await Actor.findById());
+
+
+    return agent
+      .get(`/api/v1/actors/${actor._id}`)
+      .then(res => {
+        expect(res.body).toEqual(actor);
+      });
 
   });
 
