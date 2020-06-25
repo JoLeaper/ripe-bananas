@@ -37,7 +37,7 @@ describe('ripe-bananas routes', () => {
         expect(res.body).toEqual({
           _id: expect.anything(),
           name: 'john Jones',
-          dob: Date.now(),
+          dob: expect.any(String),
           pob: 'seattle WA',
           __v:0
 
