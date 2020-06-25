@@ -13,7 +13,7 @@ describe('ripe-bananas routes', () => {
       });
   });
 
-  it.only('GETs a single actor by id', async() => {
+  it('GETs a single actor by id', async() => {
     const actor = prepare(await Actor.findOne());
 
     return agent
@@ -24,7 +24,24 @@ describe('ripe-bananas routes', () => {
 
   });
 
-  it('UPDATEs a specific actors information', () => {
+  it.only('POSTs a new actor and information', async() => {
 
+    return agent
+      .post('/api/v1/actors/')
+      .send({
+        name: 'john Jones',
+        dob: Date.now(),
+        pob: 'seattle WA'
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.anything(),
+          name: 'john Jones',
+          dob: Date.now(),
+          pob: 'seattle WA',
+          __v:0
+
+        });
+      });
   });
 });
