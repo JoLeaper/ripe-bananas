@@ -12,4 +12,16 @@ describe('ripe-bananas routes', () => {
         expect(res.body).toEqual(films);
       });
   });
+
+  it('GETs a single film by id', async() => {
+    const film = prepare(await Film.findOne());
+
+    return agent
+      .get(`/api/v1/films/${film._id}`)
+      .then(res => {
+        expect(res.body).toEqual(film);
+      });
+  });
+
+  
 });
