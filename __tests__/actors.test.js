@@ -1,13 +1,12 @@
 const Actor = require('../lib/models/Actor');
-const app = require('../lib/app');
-const { prepare } = require('../db/data-helpers');
+const { prepare, agent } = require('../db/data-helpers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
   it.only('GETs all the actors', async() => {
     const actors = prepare(await Actor.find());
 
-    return app
+    return agent
       .get('/api/v1/actors')
       .then(res => {
         expect(res.body).toEqual(actors);

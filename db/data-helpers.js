@@ -27,6 +27,8 @@ afterAll(async() => {
   return mongod.stop();
 });
 
+const agent = request.agent(app);
+
 const prepareOne = model => JSON.parse(JSON.stringify(model));
 const prepareMany = models => models.map(prepareOne);
 
@@ -36,5 +38,6 @@ const prepare = model => {
 };
 
 module.exports = {
+  agent,
   prepare
 };
