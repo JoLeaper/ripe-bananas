@@ -4,12 +4,13 @@ const { prepare, agent } = require('../db/data-helpers');
 
 describe('ripe-bananas routes', () => {
   it('GETs all the studios', async() => {
-    const studios = prepare(await Studio.find());
-
     return agent
       .get('/api/v1/studios')
       .then(res => {
-        expect(res.body).toEqual(studios);
+        expect(res.body).toContainEqual({
+          _id: expect.anything(),
+          name: expect.any(String),
+        });
       });
   });
 
