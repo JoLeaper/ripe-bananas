@@ -3,7 +3,7 @@ const { prepare, agent } = require('../db/data-helpers');
 
 
 describe('ripe-bananas routes', () => {
-  it('GETs all the actors', async() => {
+  it.only('GETs all the reviews', async() => {
     const reviews = prepare(await Review.find());
 
     return agent
