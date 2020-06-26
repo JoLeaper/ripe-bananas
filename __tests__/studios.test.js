@@ -3,7 +3,7 @@ const { prepare, agent } = require('../db/data-helpers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
-  it.only('GETs all the studios', async() => {
+  it('GETs all the studios', async() => {
     const studios = prepare(await Studio.find().select({ _id: true, name: true }));
 
     return agent
@@ -13,8 +13,8 @@ describe('ripe-bananas routes', () => {
       });
   });
 
-  it('GETs a single studios by id', async() => {
-    const studio = prepare(await Studio.findOne().populate('films'));
+  it.only('GETs a single studios by id', async() => {
+    const studio = prepare(await Studio.findOne().populate('films', { title: true, studio: true }));
 
     return agent
       .get(`/api/v1/studios/${studio._id}`)
