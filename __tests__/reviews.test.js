@@ -21,7 +21,7 @@ describe('ripe-bananas routes', () => {
     return agent
       .post('/api/v1/reviews/')
       .send({
-        rating: '2',
+        rating: 2,
         review: 'was okay but also shit',
         reviewer: reviewer.id,
         film: film.id
@@ -29,7 +29,7 @@ describe('ripe-bananas routes', () => {
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.anything(),
-          rating: '2',
+          rating: 2,
           review: 'was okay but also shit',
           reviewer: reviewer.id,
           film: film.id,
