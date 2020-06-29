@@ -1,7 +1,5 @@
 const Film = require('../lib/models/Film');
 const { prepare, agent } = require('../db/data-helpers');
-const reviewers = require('../lib/routes/reviewers');
-// two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
   it('GETs all the Films', async() => {
