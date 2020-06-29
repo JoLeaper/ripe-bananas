@@ -14,7 +14,7 @@ describe('ripe-bananas routes', () => {
   });
 
   it('GETs a single actor by id', async() => {
-    const actor = prepare(await Actor.findOne().populate('films'));
+    const actor = prepare(await Actor.findOne().populate('films', { title: true, released: true }));
 
     return agent
       .get(`/api/v1/actors/${actor._id}`)
