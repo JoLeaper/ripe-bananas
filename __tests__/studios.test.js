@@ -44,8 +44,7 @@ describe('ripe-bananas studio routes', () => {
             city: 'Orlando',
             state: 'FL',
             country: 'US'
-          },
-          __v: 0
+          }
         });
       });
   });
