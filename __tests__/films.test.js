@@ -13,7 +13,12 @@ describe('ripe-bananas routes', () => {
   });
 
   it('GETs a single film by id', async() => {
-    const film = prepare(await Film.findOne());
+    const film = prepare(await Film.findOne()
+      .populate('studio', { name: true })
+      .populate({ 
+        path: 'cast.actor',
+        select: 'name'  
+      }));
 
     return agent
       .get(`/api/v1/films/${film._id}`)
