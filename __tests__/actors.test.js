@@ -4,7 +4,7 @@ const { prepare, agent } = require('../db/data-helpers');
 
 describe('ripe-bananas routes', () => {
   it('GETs all the actors', async() => {
-    const actors = prepare(await Actor.find());
+    const actors = prepare(await Actor.find().select({ name: true }));
 
     return agent
       .get('/api/v1/actors')
