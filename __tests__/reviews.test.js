@@ -1,6 +1,7 @@
 const Review = require('../lib/models/Review');
 const Reviewer = require('../lib/models/Reviewer');
 const Film = require('../lib/models/Film');
+const collection = require('../lib/utils/connect');
 const { prepare, agent } = require('../db/data-helpers');
 
 
