@@ -4,8 +4,7 @@ const { prepare, agent } = require('../db/data-helpers');
 
 describe('ripe-bananas routes', () => {
   it('GETs all the Films', async() => {
-    const films = prepare(await Film.find());
-
+    const films = prepare(await Film.find().select({ title: true, released: true, studio: true }).populate('studio', { name: true }));
     return agent
       .get('/api/v1/films')
       .then(res => {
