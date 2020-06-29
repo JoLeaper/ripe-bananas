@@ -1,5 +1,8 @@
 const Reviewer = require('../lib/models/Reviewer');
 const { prepare, agent } = require('../db/data-helpers');
+const { path } = require('../lib/app');
+const reviews = require('../lib/routes/reviews');
+const reviewers = require('../lib/routes/reviewers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
@@ -14,7 +17,24 @@ describe('ripe-bananas routes', () => {
   });
 
   it('GETs a single reviewer by id', async() => {
-    const reviewer = prepare(await Reviewer.findOne());
+    const reviewer = prepare(await Reviewer.findOne()
+      .populate({
+        path: 'reviews',
+        select: { _id: true, film: true, rating: true, review: true },
+        populate: {
+          path: 'film',
+          select: 'title'
+        }
+      })
+      .lean()
+      .then(reviewer => {
+        reviewer.reviews.forEach(review => {
+          delete review.reviewer;
+        });
+        return reviewer;
+      })
+    );
+    
 
     return agent
       .get(`/api/v1/reviewers/${reviewer._id}`)
@@ -37,7 +57,6 @@ describe('ripe-bananas routes', () => {
           _id: expect.anything(),
           name: 'John Jones',
           company: 'Jones Inc',
-          __v:0
 
         });
       });
