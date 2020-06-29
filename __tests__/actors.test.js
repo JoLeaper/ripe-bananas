@@ -14,7 +14,7 @@ describe('ripe-bananas routes', () => {
   });
 
   it('GETs a single actor by id', async() => {
-    const actor = prepare(await Actor.findOne());
+    const actor = prepare(await Actor.findOne().populate('films'));
 
     return agent
       .get(`/api/v1/actors/${actor._id}`)
@@ -39,8 +39,6 @@ describe('ripe-bananas routes', () => {
           name: 'john Jones',
           dob: expect.any(String),
           pob: 'seattle WA',
-          __v:0
-
         });
       });
   });
