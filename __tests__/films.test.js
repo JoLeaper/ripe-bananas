@@ -1,5 +1,6 @@
 const Film = require('../lib/models/Film');
 const { prepare, agent } = require('../db/data-helpers');
+const reviewers = require('../lib/routes/reviewers');
 // two get routes for actors (get all actors, get actor by id) and post route to update actors
 
 describe('ripe-bananas routes', () => {
@@ -18,6 +19,25 @@ describe('ripe-bananas routes', () => {
       .populate({ 
         path: 'cast.actor',
         select: 'name'  
+      })
+      .populate({
+        path: 'reviews',
+        select: {
+          review: true,
+          rating: true,
+          reviewer: true
+        },
+        populate: {
+          path: 'reviewer',
+          select: 'name'
+        }
+      })
+      .lean()
+      .then(films => {
+        films.reviews.forEach(film => {
+          delete film.film;
+        });
+        return films;
       }));
 
     return agent
